@@ -1,0 +1,10 @@
+{
+    "short_name": "evernote",
+    "name": "Evernote",
+    "description": "Todoist, the world’s most powerful to-do list.",
+    "url": "https://www.evernote.com/Home.action",
+    "icon": "evernote_icon.png",
+    "loading_image": "evernote.svg",
+    "primary_color": "#2DBE60",
+    "primary_dark_color": "#345ecc"
+}

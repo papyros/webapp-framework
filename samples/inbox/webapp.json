@@ -1,0 +1,10 @@
+{
+    "short_name": "inbox",
+    "name": "Inbox",
+    "description": "Inbox by Gmail",
+    "url": "https://inbox.google.com",
+    "icon": "inbox_icon.png",
+    "loading_image": "inbox.jpg",
+    "primary_color": "#4285F4",
+    "primary_dark_color": "#345ecc"
+}

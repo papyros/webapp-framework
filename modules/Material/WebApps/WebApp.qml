@@ -13,6 +13,8 @@ ApplicationWindow {
 
     theme.backgroundColor: "white"
 
+    property bool showAppName
+
     Page {
         id: page
 
@@ -124,22 +126,40 @@ ApplicationWindow {
 
             property bool hasErrors
 
-            Image {
-                id: loadingImage
+            Column {
+                id: loadingColumn
+
                 anchors.centerIn: parent
 
-                width: implicitWidth/Screen.devicePixelRatio
-                height: implicitHeight/Screen.devicePixelRatio
+                spacing: units.dp(30)
 
-                sourceSize {
-                    width: units.dp(400) * Screen.devicePixelRatio
-                    height: units.dp(200) * Screen.devicePixelRatio
+                Image {
+                    id: loadingImage
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    width: implicitWidth/Screen.devicePixelRatio
+                    height: implicitHeight/Screen.devicePixelRatio
+
+                    sourceSize {
+                        width: units.dp(400) * Screen.devicePixelRatio
+                        height: (webapp.showAppName ? units.dp(150) : units.dp(200))
+                                * Screen.devicePixelRatio
+                    }
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    text: webapp.title
+                    style: "subheading"
+                    font.pixelSize: units.dp(27)
+                    visible: webapp.showAppName
                 }
             }
 
             Item {
                 anchors {
-                    top: loadingImage.bottom
+                    top: loadingColumn.bottom
                     bottom: parent.bottom
                     left: parent.left
                     right: parent.right

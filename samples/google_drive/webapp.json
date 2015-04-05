@@ -1,0 +1,10 @@
+{
+    "short_name": "google-drive",
+    "name": "Google Drive",
+    "description": "All your documents in the cloud!",
+    "url": "https://drive.google.com",
+    "icon": "drive.png",
+    "loading_image": "drive.png",
+    "primary_color": "#4285F4",
+    "primary_dark_color": "#345ecc"
+}

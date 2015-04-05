@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Name=Google Drive
+Comment=All your documents in the cloud!
+Exec=qmlscene /home/mspencer/.local/share/webapps/google-drive/webapp.qml
+Icon=/home/mspencer/.local/share/webapps/google-drive/drive.png
+Terminal=False
+Type=Application

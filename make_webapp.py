@@ -24,6 +24,22 @@ class WebApp(object):
     def from_file(file):
         return WebApp(json.load(file))
 
+    def build(self, path, force=False):
+        path = os.path.expanduser(path)
+        webapp_path = path + '/webapps/' + self.json['short_name']
+
+        if os.path.exists('webapp.qml') and not force:
+            print('webapp.qml already built. Use --force to override.')
+        else:
+            with open('webapp.qml', 'w') as file:
+                file.write(self.webapp_file())
+
+        if os.path.exists(self.json['short_name'] + '.desktop') and not force:
+            print(self.json['short_name'] + '.desktop already built. Use --force to override.')
+        else:
+            with open(self.json['short_name'] + '.desktop', 'w') as file:
+                file.write(self.desktop_file(webapp_path))
+
     def install(self, path):
         path = os.path.expanduser(path)
         webapp_path = path + '/webapps/' + self.json['short_name']
@@ -31,14 +47,13 @@ class WebApp(object):
         if not os.path.exists(webapp_path):
             os.makedirs(webapp_path)
 
-        with open(webapp_path + '/webapp.qml', 'w') as file:
-            file.write(self.webapp_file())
-
-        with open(path + '/applications/' + self.json['short_name'] + '.desktop', 'w') as file:
-            file.write(self.desktop_file(webapp_path))
-
+        shutil.copy(self.json['short_name'] + '.desktop', path + '/applications')
+        shutil.copy('webapp.qml', webapp_path)
         shutil.copy(self.json['loading_image'], webapp_path)
         shutil.copy(self.json['icon'], webapp_path)
+
+    def run(self):
+        os.system('qmlscene webapp.qml')
 
     def desktop_file(self, path):
         qml_path = path + '/webapp.qml'
@@ -75,6 +90,16 @@ class WebApp(object):
 
 
 if __name__=='__main__':
-    with open(sys.argv[1]) as file:
+    cmd = sys.argv[1]
+
+    with open("webapp.json") as file:
         webapp = WebApp.from_file(file)
+
+    if cmd == 'build':
+        force = len(sys.argv) == 3 and sys.argv[2] == '--force'
+
+        webapp.build('~/.local/share', force)
+    if cmd == 'install':
         webapp.install('~/.local/share')
+    if cmd == 'run':
+        webapp.run()
